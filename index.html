@@ -216,7 +216,49 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
 .rise{animation:rise .45s 1s both}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}}
 
+
+/* celebrations */
+.fx{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:60}
+.uni{position:absolute;left:0;width:var(--s);animation:run var(--dur) cubic-bezier(.3,.1,.7,.9) var(--delay) both;will-change:transform}
+@keyframes run{from{transform:translateX(-520px)}to{transform:translateX(calc(100vw + 60px))}}
+.uni .bob{animation:bob .3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(2.5deg)}}
+.uni svg{display:block;width:100%;height:auto;overflow:visible}
+.uni .leg{transform-box:fill-box;transform-origin:50% 0;animation:leg .3s ease-in-out infinite alternate}
+.uni .lf2{animation-delay:-.04s} .uni .lb1{animation-delay:-.3s} .uni .lb2{animation-delay:-.34s}
+@keyframes leg{from{transform:rotate(-42deg)}to{transform:rotate(42deg)}}
+.uni .tail{transform-box:fill-box;transform-origin:100% 0;animation:tail .25s ease-in-out infinite alternate}
+@keyframes tail{from{transform:rotate(-7deg)}to{transform:rotate(9deg)}}
+.uni .trail{position:absolute;right:86%;top:50%;width:400px;height:calc(var(--s) * .13);opacity:.85;
+  background:linear-gradient(to bottom,#f0553f 16.6%,#f2914b 0 33.3%,#e8d44d 0 50%,#3ecf6e 0 66.6%,#3e8ef7 0 83.3%,#7b5cfa 0);
+  -webkit-mask-image:linear-gradient(to left,#000,transparent);mask-image:linear-gradient(to left,#000,transparent)}
+.uni .sp{position:absolute;font-size:1.1rem;animation:twinkle .4s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.15;transform:scale(.6) rotate(0)}to{opacity:1;transform:scale(1.2) rotate(40deg)}}
+.streakbanner{position:fixed;left:50%;top:28%;z-index:70;pointer-events:none;opacity:0;white-space:nowrap;text-align:center;
+  font:800 clamp(2.2rem,11vw,3.6rem)/1.1 var(--font);letter-spacing:-.03em;
+  background:linear-gradient(90deg,#f0553f,#f2914b,#e8d44d,#3ecf6e,#3e8ef7,#7b5cfa);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.35))}
+.streakbanner.fire{background:linear-gradient(90deg,#fff3a0,#ffb020,#ff4d2e,#ff2bd6,#38e1ff);-webkit-background-clip:text;background-clip:text}
+.streakbanner.show{animation:bannerpop 2s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes bannerpop{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-6deg)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.08) rotate(2deg)}
+  24%{transform:translate(-50%,-50%) scale(1) rotate(0)}80%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-62%) scale(1)}}
+.laser{position:absolute;width:7px;margin-left:-3.5px;transform-origin:50% 0;border-radius:4px;
+  background:linear-gradient(90deg,var(--lc),#fff 50%,var(--lc));box-shadow:0 0 10px 3px var(--lc),0 0 34px 10px var(--lc);
+  animation:zap .42s ease-out var(--d) both}
+@keyframes zap{0%{opacity:1;clip-path:inset(0 0 100% 0)}35%{opacity:1;clip-path:inset(0 0 0 0)}70%{opacity:.9}100%{opacity:0;clip-path:inset(100% 0 0 0)}}
+.boom{position:absolute;width:0;height:0}
+.boom .flash{position:absolute;left:-60px;top:-60px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,#fff 0 18%,#ffe066 30%,#ff8a1f 52%,rgba(255,60,30,.6) 66%,transparent 72%);animation:flash .62s ease-out var(--d) both}
+@keyframes flash{0%{transform:scale(0);opacity:1}35%{transform:scale(1.25);opacity:1}100%{transform:scale(1.7);opacity:0}}
+.boom .ring{position:absolute;left:-50px;top:-50px;width:100px;height:100px;border-radius:50%;border:3px solid #ffd34d;animation:ring .62s ease-out var(--d) both}
+@keyframes ring{0%{transform:scale(0);opacity:1}100%{transform:scale(2.4);opacity:0}}
+.boom i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;background:var(--pc);box-shadow:0 0 8px var(--pc);animation:spark .65s cubic-bezier(.15,.7,.3,1) var(--d) both}
+@keyframes spark{0%{transform:translate(0,0) scale(1.3);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.shake{animation:shake .38s linear}
+@keyframes shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-7px,4px)}40%{transform:translate(6px,-5px)}60%{transform:translate(-5px,-3px)}80%{transform:translate(4px,5px)}}
+
 @media (prefers-reduced-motion: reduce){
+  .shake{animation:none}
   .ho-card.go{animation-duration:.2s} .rise{animation-delay:.1s;animation-duration:.1s}
   .ring.danger .num{animation:none} .pod .blk{animation:none} .delta{animation-duration:.5s}
 }
@@ -271,6 +313,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
         <li>Do not say the term or any crossed-out word. No gestures, spelling or rhymes.</li>
         <li>Guessed gives the explainer +1 point. Skip costs 1 point.</li>
         <li>The round ends when the timer hits zero. The card on screen at that moment does not count.</li>
+        <li>Three correct guesses in a row brings out the unicorns. Five in a row calls in the space lasers.</li>
         <li>After each round you see a short example explanation for every card that was not guessed.</li>
         <li>Then pass the device to the next player. Highest score after the last turn wins.</li>
       </ul>
@@ -360,6 +403,9 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
     </div>
   </section>
 </div>
+
+<div class="fx" id="fx" aria-hidden="true"></div>
+<div class="streakbanner" id="banner" role="status"></div>
 
 <!-- HANDOFF -->
 <div class="handoff" id="handoff" hidden>
@@ -516,7 +562,7 @@ const S = {
   active: new Set(DATA.cats.map((_, i) => i)),
   players: [], deck: [], turn: 0, round: 1,
   phase: 'setup', running: false, paused: false, busy: false, flying: false,
-  cur: null, endAt: 0, remain: 0, raf: 0, lastTick: -1, delta: 0,
+  cur: null, streak: 0, endAt: 0, remain: 0, raf: 0, lastTick: -1, delta: 0,
   log: { got: [], skip: [], left: null }, muted: false, sumTimer: 0
 };
 
@@ -664,8 +710,10 @@ function dealNext(cb) {
 function mark(kind) {
   if (S.phase !== 'playing' || !S.running || S.paused || S.busy) return;
   const p = S.players[S.turn], t = S.cur;
-  if (kind === 'got') { p.score++; p.got++; S.log.got.push(t); S.delta++; beep(660, .1); setTimeout(() => beep(990, .16), 90); }
-  else { p.score--; p.skip++; S.log.skip.push(t); S.delta--; beep(240, .14, 'triangle', .07); }
+  if (kind === 'got') { p.score++; p.got++; S.log.got.push(t); S.delta++; S.streak++; beep(660, .1); setTimeout(() => beep(990, .16), 90);
+    if (S.streak % 5 === 0) setTimeout(() => lasers(S.streak), 250);
+    else if (S.streak % 3 === 0) setTimeout(() => unicorns(S.streak), 250); }
+  else { p.score--; p.skip++; S.log.skip.push(t); S.delta--; S.streak = 0; beep(240, .14, 'triangle', .07); }
   floatDelta(kind); renderScorebar(); renderTurnMeta();
   S.busy = true; S.flying = true;
   const c = $('card'), sg = kind === 'got' ? 1 : -1;
@@ -769,7 +817,8 @@ function renderScorebar() {
 function enterTurn() {
   const p = S.players[S.turn];
   clearTimeout(S.sumTimer); cancelAnimationFrame(S.raf);
-  Object.assign(S, { phase: 'ready', running: false, paused: false, busy: false, flying: false, delta: 0, cur: null, lastTick: -1 });
+  Object.assign(S, { phase: 'ready', running: false, paused: false, busy: false, flying: false, delta: 0, cur: null, streak: 0, lastTick: -1 });
+  clearFx();
   S.log = { got: [], skip: [], left: null };
   $('turnDot').style.background = p.color; $('turnName').textContent = p.name;
   $('stamp').classList.remove('show');
@@ -886,7 +935,7 @@ $('nextBtn').onclick = () => {
 
 /* ---------- final ---------- */
 function showFinal() {
-  clearTimeout(S.sumTimer); cancelAnimationFrame(S.raf);
+  clearFx(); clearTimeout(S.sumTimer); cancelAnimationFrame(S.raf);
   S.phase = 'final'; S.running = false; S.paused = false;
   $('handoff').hidden = true;
   const ranked = rankPlayers();
@@ -917,6 +966,96 @@ $('endBtn').onclick = () => {
   }
   showFinal();
 };
+
+
+/* ---------- celebrations ---------- */
+let fxTimer = 0;
+function clearFx() { clearTimeout(fxTimer); $('fx').innerHTML = ''; $('banner').classList.remove('show'); }
+function banner(text, fire) {
+  const b = $('banner'); b.textContent = text; b.classList.toggle('fire', !!fire);
+  b.classList.remove('show'); void b.offsetWidth; b.classList.add('show');
+}
+function sweep(f0, f1, d, type = 'square', v = .06) {
+  if (S.muted) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime;
+    o.type = type; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + d);
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(g); g.connect(ac.destination); o.start(); o.stop(t + d);
+  } catch (e) {}
+}
+function boomSound() {
+  if (S.muted) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const len = ac.sampleRate * .45, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5);
+    const src = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    src.buffer = buf; f.type = 'lowpass'; f.frequency.value = 900; g.gain.value = .35;
+    src.connect(f); f.connect(g); g.connect(ac.destination); src.start();
+  } catch (e) {}
+}
+
+const PAL = ['#f0553f', '#f2914b', '#e8d44d', '#3ecf6e', '#3e8ef7', '#7b5cfa'];
+function unicornSVG() {
+  const leg = (x, cls, far) => `<g class="leg ${cls}"><line x1="${x}" y1="60" x2="${x}" y2="98" stroke="#b9a8ff" stroke-width="12" stroke-linecap="round"/><line x1="${x}" y1="60" x2="${x}" y2="98" stroke="${far ? '#e9e4ff' : '#fff'}" stroke-width="8" stroke-linecap="round"/><rect x="${x - 5}" y="92" width="10" height="8" rx="3" fill="#ff9ad5"/></g>`;
+  const shapes = '<ellipse cx="84" cy="50" rx="46" ry="21"/><path d="M104 38 L126 2 L148 14 L126 56 Z"/><ellipse cx="141" cy="14" rx="16" ry="11" transform="rotate(28 141 14)"/><ellipse cx="156" cy="24" rx="11" ry="7.5" transform="rotate(28 156 24)"/><path d="M128 6 L130 -8 L138 2 Z"/>';
+  const tail = PAL.map((c, i) => `<path d="M46 44 C ${26 - i} ${40 + i * 3}, ${10 + i * 2} ${58 + i * 3}, ${6 + i * 2} ${86 + i * 2}" stroke="${c}" stroke-width="5.5" fill="none" stroke-linecap="round"/>`).join('');
+  const mane = PAL.map((c, i) => `<path d="M${128 - i * 2} ${-2 + i} C ${108 - i * 3} ${-6 + i * 2}, ${98 - i * 3} ${12 + i * 2}, ${100 - i * 3} ${40 + i * 2}" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/>`).join('');
+  return `<svg viewBox="0 -30 172 134" xmlns="http://www.w3.org/2000/svg"><g class="tail">${tail}</g>${leg(58, 'lb2', true)}${leg(118, 'lf2', true)}${leg(70, 'lb1', false)}${leg(110, 'lf1', false)}
+  <g fill="#b9a8ff" stroke="#b9a8ff" stroke-width="5" stroke-linejoin="round">${shapes}</g><g fill="#fff">${shapes}</g>${mane}
+  <path d="M138 4 L148 1 L158 -26 Z" fill="#ffd86b" stroke="#e0a82e" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="146" cy="12" r="2.8" fill="#2b2d42"/><circle cx="147" cy="11" r=".9" fill="#fff"/><circle cx="144" cy="20" r="3.2" fill="#ffb3d9" opacity=".7"/><circle cx="162" cy="23" r="1.2" fill="#b9a8ff"/></svg>`;
+}
+function unicorns(n) {
+  if (S.phase !== 'playing') return;
+  clearFx(); banner(n + ' in a row!');
+  [523, 659, 784, 1047, 1319].forEach((f, i) => setTimeout(() => beep(f, .18, 'triangle', .08), i * 90));
+  if (reduced) { fxTimer = setTimeout(clearFx, 2000); return; }
+  const box = $('fx'), rows = [8, 34, 58], sizes = [190, 150, 120];
+  for (let i = 0; i < 3; i++) {
+    const u = document.createElement('div'); u.className = 'uni';
+    u.style.cssText = `--s:${sizes[i]}px;--dur:${1.75 - i * .1}s;--delay:${i * .1}s;bottom:${rows[i]}%`;
+    let sp = ''; for (let k = 0; k < 5; k++) sp += `<span class="sp" style="left:${-(15 + Math.random() * 110)}%;top:${Math.random() * 90}%;color:${PAL[(k + i) % 6]}">✦</span>`;
+    u.innerHTML = `<div class="trail"></div>${sp}<div class="bob">${unicornSVG()}</div>`;
+    box.appendChild(u);
+  }
+  fxTimer = setTimeout(clearFx, 2000);
+}
+function lasers(n) {
+  if (S.phase !== 'playing') return;
+  clearFx(); banner(n + ' in a row!', true);
+  if (reduced) { [392, 523, 659, 784].forEach((f, i) => setTimeout(() => beep(f, .2, 'square', .05), i * 100)); fxTimer = setTimeout(clearFx, 2000); return; }
+  const box = $('fx'), W = innerWidth, H = innerHeight;
+  const colors = ['#ff2b5e', '#38e1ff', '#7dff5a', '#ff2bd6', '#ffe14d', '#38e1ff', '#ff2b5e'];
+  const shots = 7;
+  for (let i = 0; i < shots; i++) {
+    const d = i * .2 + Math.random() * .06;
+    const ox = Math.random() * W, oy = -40;
+    const tx = W * (.12 + Math.random() * .76), ty = H * (.18 + Math.random() * .7);
+    const len = Math.hypot(tx - ox, ty - oy), ang = Math.atan2(ty - oy, tx - ox) * 180 / Math.PI - 90;
+    const lc = colors[i % colors.length];
+    const l = document.createElement('div'); l.className = 'laser';
+    l.style.cssText = `left:${ox}px;top:${oy}px;height:${len}px;transform:rotate(${ang}deg);--lc:${lc};--d:${d}s`;
+    box.appendChild(l);
+    const b = document.createElement('div'); b.className = 'boom';
+    const bd = d + .14;
+    b.style.cssText = `left:${tx}px;top:${ty}px;--d:${bd}s`;
+    let parts = '<div class="flash"></div><div class="ring"></div>';
+    for (let k = 0; k < 14; k++) {
+      const a = (k / 14) * Math.PI * 2 + Math.random() * .3, r = 50 + Math.random() * 70;
+      parts += `<i style="--dx:${Math.cos(a) * r}px;--dy:${Math.sin(a) * r}px;--pc:${['#ffe14d', '#ff8a1f', '#ff3b2e', lc][k % 4]}"></i>`;
+    }
+    b.innerHTML = parts; box.appendChild(b);
+    setTimeout(() => sweep(1600, 180, .22, 'square', .05), d * 1000);
+    setTimeout(() => {
+      boomSound();
+      const w = document.querySelector('.wrap'); w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake');
+    }, bd * 1000);
+  }
+  fxTimer = setTimeout(() => { clearFx(); document.querySelector('.wrap').classList.remove('shake'); }, 2000);
+}
 
 /* ---------- keyboard ---------- */
 addEventListener('keydown', e => {
