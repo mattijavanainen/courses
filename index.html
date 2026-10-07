@@ -280,15 +280,15 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
   <!-- SETUP -->
   <section id="setup">
     <h1>Explain it without saying it.</h1>
-    <p class="lead">A party game for solid state physics. One person explains, everyone else guesses, then the phone moves on.</p>
+    <p class="lead">A team game for solid state physics. One teammate explains, the rest of the team guesses, then the phone moves on to the next team.</p>
 
     <div class="panel">
       <div class="field">
-        <div class="flabel">Players</div>
+        <div class="flabel">Teams</div>
         <div class="stepper">
-          <button id="pMinus" aria-label="Fewer players">&minus;</button>
-          <span id="pCount" aria-live="polite">3</span>
-          <button id="pPlus" aria-label="More players">+</button>
+          <button id="pMinus" aria-label="Fewer teams">&minus;</button>
+          <span id="pCount" aria-live="polite">2</span>
+          <button id="pPlus" aria-label="More teams">+</button>
         </div>
       </div>
       <div class="names" id="names"></div>
@@ -296,7 +296,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
 
     <div class="panel">
       <div class="field"><div class="flabel">Round length</div><div class="seg" id="segLen" role="group" aria-label="Round length"></div></div>
-      <div class="field"><div class="flabel">Turns per player</div><div class="seg" id="segRounds" role="group" aria-label="Turns per player"></div></div>
+      <div class="field"><div class="flabel">Rounds</div><div class="seg" id="segRounds" role="group" aria-label="Number of rounds"></div></div>
     </div>
 
     <div class="panel">
@@ -309,13 +309,13 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
     <details class="rules">
       <summary>How to play</summary>
       <ul>
-        <li>Each round, one player explains the terms on the cards while everyone else guesses.</li>
+        <li>Each team takes a turn in every round. One teammate explains the cards while the rest of the team guesses. Swap the explainer every round.</li>
         <li>Do not say the term or any crossed-out word. No gestures, spelling or rhymes.</li>
-        <li>Guessed gives the explainer +1 point. Skip costs 1 point.</li>
-        <li>The round ends when the timer hits zero. The card on screen at that moment does not count.</li>
-        <li>Three correct guesses in a row brings out the unicorns. Five in a row calls in the space lasers.</li>
-        <li>After each round you see a short example explanation for every card that was not guessed.</li>
-        <li>Then pass the device to the next player. Highest score after the last turn wins.</li>
+        <li>Guessed gives the team +2 points. Skip costs the team 1 point.</li>
+        <li>A turn ends when the timer hits zero. The card on screen at that moment does not count.</li>
+        <li>Three correct guesses in a row brings out the unicorns and earns 1 bonus point. Five in a row calls in the space lasers and earns 2 bonus points. The streak repeats at 6, 9, 10 and so on, and resets on a skip or at the start of a turn.</li>
+        <li>After each turn you see a short example explanation for every card that was not guessed.</li>
+        <li>Then pass the device to the next team. The team with the highest score after the last round wins.</li>
       </ul>
     </details>
   </section>
@@ -325,7 +325,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
     <div class="scorebar" id="scorebar" aria-label="Scores"></div>
     <div class="turnhead">
       <div class="who">
-        <div class="k">Explaining now</div>
+        <div class="k">Team playing</div>
         <div class="n"><span class="dot" id="turnDot"></span><span id="turnName"></span></div>
         <div class="meta" id="turnMeta"></div>
       </div>
@@ -361,7 +361,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
     <button class="btn primary big" id="drawBtn">Draw the first card</button>
     <div class="actions" id="actions" hidden>
       <button class="btn skip" id="skipBtn">Skip<span class="pts">&minus;1</span></button>
-      <button class="btn got" id="gotBtn">Guessed<span class="pts">+1</span></button>
+      <button class="btn got" id="gotBtn">Guessed<span class="pts">+2</span></button>
     </div>
     <div class="keys">Keyboard: <kbd>&larr;</kbd> skip, <kbd>&rarr;</kbd> guessed, <kbd>P</kbd> pause</div>
   </section>
@@ -372,7 +372,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
       <div class="kicker" id="sumKicker"></div>
       <h2 id="sumTitle"></h2>
       <div class="net" id="sumNet">0</div>
-      <div class="counts"><span><b id="sumGot">0</b> guessed</span><span><b id="sumSkip">0</b> skipped</span></div>
+      <div class="counts"><span><b id="sumGot">0</b> guessed</span><span><b id="sumSkip">0</b> skipped</span><span id="sumBonusWrap" hidden><b id="sumBonus">0</b> streak bonus</span></div>
     </div>
     <div class="panel">
       <h3>How these could have been explained</h3>
@@ -386,7 +386,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
       <h3>Scores</h3>
       <ol class="board" id="sumBoard"></ol>
     </div>
-    <button class="btn primary big" id="nextBtn">Next player</button>
+    <button class="btn primary big" id="nextBtn">Next team</button>
   </section>
 
   <!-- FINAL -->
@@ -398,7 +398,7 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
     <div class="podium" id="podium"></div>
     <div class="panel"><h3>Final scores</h3><ol class="board" id="finBoard"></ol></div>
     <div class="row2">
-      <button class="btn ghost" id="newBtn">Change players</button>
+      <button class="btn ghost" id="newBtn">Change teams</button>
       <button class="btn primary" id="againBtn">Play again</button>
     </div>
   </section>
@@ -417,12 +417,12 @@ h2{font-size:1.65rem;margin:2px 0 4px;letter-spacing:-.02em;font-weight:800;word
         <div class="ho-face ho-back"></div>
         <div class="ho-face ho-front" id="hoFront">
           <div class="ho-init" id="hoInit"></div>
-          <div class="ho-label" id="hoLabel">Next explainer</div>
+          <div class="ho-label" id="hoLabel">Next team</div>
           <div class="ho-name" id="hoName"></div>
         </div>
       </div>
     </div>
-    <p class="ho-msg rise">Pass the device to <b id="hoMsgName"></b></p>
+    <p class="ho-msg rise">Pass the device to team <b id="hoMsgName"></b></p>
     <p class="ho-then rise" id="hoThen"></p>
     <button class="btn primary big rise" id="hoGo">Start my round</button>
   </div>
@@ -578,12 +578,12 @@ const latticeSVG = `<svg xmlns='http://www.w3.org/2000/svg' width='56' height='5
 document.documentElement.style.setProperty('--lattice', `url("data:image/svg+xml,${encodeURIComponent(latticeSVG)}")`);
 
 const S = {
-  count: 3, names: [], roundLen: 60, roundsEach: 3,
+  count: 2, names: [], roundLen: 60, roundsEach: 3,
   active: new Set(DATA.cats.map((_, i) => i)),
   players: [], deck: [], turn: 0, round: 1,
   phase: 'setup', running: false, paused: false, busy: false, flying: false,
   cur: null, streak: 0, endAt: 0, remain: 0, raf: 0, lastTick: -1, delta: 0,
-  log: { got: [], skip: [], left: null }, muted: false, sumTimer: 0
+  log: { got: [], skip: [], left: null, bonus: 0 }, muted: false, sumTimer: 0
 };
 
 /* ---------- audio ---------- */
@@ -621,8 +621,8 @@ function renderNames() {
     const row = document.createElement('label'); row.className = 'namerow';
     const dot = document.createElement('span'); dot.className = 'dot'; dot.style.background = PLAYER_COLORS[i];
     const inp = document.createElement('input');
-    inp.type = 'text'; inp.maxLength = 18; inp.autocomplete = 'off'; inp.placeholder = 'Player ' + (i + 1);
-    inp.setAttribute('aria-label', 'Name of player ' + (i + 1));
+    inp.type = 'text'; inp.maxLength = 18; inp.autocomplete = 'off'; inp.placeholder = 'Team ' + (i + 1);
+    inp.setAttribute('aria-label', 'Name of team ' + (i + 1));
     inp.value = S.names[i] || '';
     inp.addEventListener('keydown', e => {
       if (e.key === 'Enter') { e.preventDefault(); const nx = box.querySelectorAll('input')[i + 1]; nx ? nx.focus() : $('startBtn').focus(); }
@@ -630,10 +630,10 @@ function renderNames() {
     row.append(dot, inp); box.appendChild(row);
   }
   $('pCount').textContent = S.count;
-  $('pMinus').disabled = S.count <= 2; $('pPlus').disabled = S.count >= 10;
+  $('pMinus').disabled = S.count <= 2; $('pPlus').disabled = S.count >= 4;
 }
 $('pMinus').onclick = () => { if (S.count > 2) { S.count--; renderNames(); } };
-$('pPlus').onclick = () => { if (S.count < 10) { S.count++; renderNames(); const ins = $('names').querySelectorAll('input'); ins[ins.length - 1].focus(); } };
+$('pPlus').onclick = () => { if (S.count < 4) { S.count++; renderNames(); const ins = $('names').querySelectorAll('input'); ins[ins.length - 1].focus(); } };
 
 function seg(el, opts, get, set) {
   el.innerHTML = '';
@@ -659,7 +659,7 @@ DATA.cats.forEach((name, i) => {
 });
 
 $('startBtn').onclick = () => {
-  const names = [...$('names').querySelectorAll('input')].map((inp, k) => inp.value.trim() || 'Player ' + (k + 1));
+  const names = [...$('names').querySelectorAll('input')].map((inp, k) => inp.value.trim() || 'Team ' + (k + 1));
   S.names = [...$('names').querySelectorAll('input')].map(i => i.value);
   S.players = names.map((n, i) => ({ name: n, color: PLAYER_COLORS[i], score: 0, got: 0, skip: 0 }));
   newGame();
@@ -730,11 +730,17 @@ function dealNext(cb) {
 function mark(kind) {
   if (S.phase !== 'playing' || !S.running || S.paused || S.busy) return;
   const p = S.players[S.turn], t = S.cur;
-  if (kind === 'got') { p.score++; p.got++; S.log.got.push(t); S.delta++; S.streak++; beep(660, .1); setTimeout(() => beep(990, .16), 90);
-    if (S.streak % 5 === 0) setTimeout(() => lasers(S.streak), 250);
-    else if (S.streak % 3 === 0) setTimeout(() => unicorns(S.streak), 250); }
-  else { p.score--; p.skip++; S.log.skip.push(t); S.delta--; S.streak = 0; beep(240, .14, 'triangle', .07); }
-  floatDelta(kind); renderScorebar(); renderTurnMeta();
+  let gain = 0;
+  if (kind === 'got') {
+    S.streak++;
+    const bonus = S.streak % 5 === 0 ? 2 : S.streak % 3 === 0 ? 1 : 0;
+    gain = 2 + bonus;
+    p.score += gain; p.got++; S.log.got.push(t); S.delta += gain; S.log.bonus += bonus;
+    beep(660, .1); setTimeout(() => beep(990, .16), 90);
+    if (bonus === 2) setTimeout(() => lasers(S.streak, bonus), 250);
+    else if (bonus === 1) setTimeout(() => unicorns(S.streak, bonus), 250);
+  } else { gain = -1; p.score--; p.skip++; S.log.skip.push(t); S.delta--; S.streak = 0; beep(240, .14, 'triangle', .07); }
+  floatDelta(gain); renderScorebar(); renderTurnMeta();
   S.busy = true; S.flying = true;
   const c = $('card'), sg = kind === 'got' ? 1 : -1;
   const a = c.animate([
@@ -747,10 +753,10 @@ function mark(kind) {
     if (S.phase === 'playing') dealNext(); else S.busy = false;
   };
 }
-function floatDelta(kind) {
+function floatDelta(gain) {
   const d = document.createElement('div');
-  d.className = 'delta ' + (kind === 'got' ? 'g' : 's');
-  d.textContent = kind === 'got' ? '+1' : MINUS + '1';
+  d.className = 'delta ' + (gain > 0 ? 'g' : 's');
+  d.textContent = gain > 0 ? '+' + gain : MINUS + Math.abs(gain);
   $('stage').appendChild(d); setTimeout(() => d.remove(), 900);
 }
 
@@ -813,7 +819,7 @@ function updateControls() {
   $('pauseCover').hidden = !S.paused;
   $('card').classList.toggle('tap', ph === 'ready');
 }
-function roundLabel() { return S.roundsEach ? `Turn ${S.round} of ${S.roundsEach}` : `Turn ${S.round}`; }
+function roundLabel() { return S.roundsEach ? `Round ${S.round} of ${S.roundsEach}` : `Round ${S.round}`; }
 function renderTurnMeta() {
   const m = $('turnMeta');
   m.innerHTML = '';
@@ -839,7 +845,7 @@ function enterTurn() {
   clearTimeout(S.sumTimer); cancelAnimationFrame(S.raf);
   Object.assign(S, { phase: 'ready', running: false, paused: false, busy: false, flying: false, delta: 0, cur: null, streak: 0, lastTick: -1 });
   clearFx();
-  S.log = { got: [], skip: [], left: null };
+  S.log = { got: [], skip: [], left: null, bonus: 0 };
   $('turnDot').style.background = p.color; $('turnName').textContent = p.name;
   $('stamp').classList.remove('show');
   const c = $('card'); c.getAnimations().forEach(a => a.cancel()); c.style.transform = DOWN; c.style.opacity = '1';
@@ -866,14 +872,14 @@ function showHandoff() {
   $('endBtn').hidden = true;
   const first = S.turn === 0 && S.round === 1;
   $('hoKicker').textContent = roundLabel();
-  $('hoLabel').textContent = first ? 'First explainer' : 'Next explainer';
+  $('hoLabel').textContent = first ? 'First team up' : 'Next team up';
   $('hoInit').textContent = ([...p.name][0] || '?').toUpperCase();
   $('hoName').textContent = p.name;
   $('hoFront').style.setProperty('--pc', p.color);
   $('hoMsgName').textContent = p.name;
   const nx = S.players[(S.turn + 1) % S.players.length];
-  $('hoThen').textContent = `Everyone else guesses. ${nx.name} explains after you.`;
-  $('hoGo').textContent = `I'm ${p.name}, start my round`;
+  $('hoThen').textContent = `Choose one explainer. The rest of the team guesses. ${nx.name} is up after you.`;
+  $('hoGo').textContent = `We're ready, start the turn`;
   const h = $('handoff'); h.hidden = false; h.scrollTop = 0;
   const card = $('hoCard'); card.classList.remove('go'); void card.offsetWidth; card.classList.add('go');
   h.querySelectorAll('.rise').forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
@@ -915,8 +921,9 @@ function showSummary() {
   S.phase = 'summary';
   const p = S.players[S.turn];
   $('sumKicker').textContent = roundLabel();
-  $('sumTitle').textContent = `${p.name}'s round`;
+  $('sumTitle').textContent = `${p.name}'s turn`;
   const n = $('sumNet'); n.textContent = fmt(S.delta); n.className = 'net ' + (S.delta > 0 ? 'pos' : S.delta < 0 ? 'neg' : '');
+  $('sumBonusWrap').hidden = !S.log.bonus; $('sumBonus').textContent = '+' + S.log.bonus;
   $('sumGot').textContent = S.log.got.length; $('sumSkip').textContent = S.log.skip.length;
 
   const ex = $('sumExplain'); ex.innerHTML = '';
@@ -1028,9 +1035,9 @@ function unicornSVG() {
   <path d="M138 4 L148 1 L158 -26 Z" fill="#ffd86b" stroke="#e0a82e" stroke-width="1.5" stroke-linejoin="round"/>
   <circle cx="146" cy="12" r="2.8" fill="#2b2d42"/><circle cx="147" cy="11" r=".9" fill="#fff"/><circle cx="144" cy="20" r="3.2" fill="#ffb3d9" opacity=".7"/><circle cx="162" cy="23" r="1.2" fill="#b9a8ff"/></svg>`;
 }
-function unicorns(n) {
+function unicorns(n, bonus) {
   if (S.phase !== 'playing') return;
-  clearFx(); banner(n + ' in a row!');
+  clearFx(); banner(n + ' in a row! +' + bonus + ' bonus');
   [523, 659, 784, 1047, 1319].forEach((f, i) => setTimeout(() => beep(f, .18, 'triangle', .08), i * 90));
   if (reduced) { fxTimer = setTimeout(clearFx, 2000); return; }
   const box = $('fx'), rows = [8, 34, 58], sizes = [190, 150, 120];
@@ -1043,9 +1050,9 @@ function unicorns(n) {
   }
   fxTimer = setTimeout(clearFx, 2000);
 }
-function lasers(n) {
+function lasers(n, bonus) {
   if (S.phase !== 'playing') return;
-  clearFx(); banner(n + ' in a row!', true);
+  clearFx(); banner(n + ' in a row! +' + bonus + ' bonus', true);
   if (reduced) { [392, 523, 659, 784].forEach((f, i) => setTimeout(() => beep(f, .2, 'square', .05), i * 100)); fxTimer = setTimeout(clearFx, 2000); return; }
   const box = $('fx'), W = innerWidth, H = innerHeight;
   const colors = ['#ff2b5e', '#38e1ff', '#7dff5a', '#ff2bd6', '#ffe14d', '#38e1ff', '#ff2b5e'];
